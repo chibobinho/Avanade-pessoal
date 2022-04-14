@@ -6,6 +6,8 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  StatusBar,
+  TabBar
 } from 'react-native';
 
 import api from '../services/api';
@@ -79,106 +81,59 @@ class Cadastro extends Component {
   render() {
     return (
       <View style={styles.main}>
-        <View style={styles.mainDiv}>
+        <StatusBar
+          barStyle='dark-content'
+          backgroundColor='#F3BC2C'
+          hidden={false}
+        />
 
-          <View style={styles.mainTitleSpace}>
-            <TouchableOpacity style={styles.mainBtnBack} onPress={() => this.props.navigation.goBack()}>
-              <Image style={styles.mainImage} source={require('../../assets/img/Icone_voltar.png')} />
-            </TouchableOpacity>
-            <Text style={styles.mainTitle}>Cadastro</Text>
-          </View>
-
-          <View style={styles.mainFormSpace}>
-            <TextInput
-              style={styles.mainInput}
-              placeholder='Nome Completo'
-              placeholderTextColor='#000000'
-              onChangeText={nomeUsuario => this.setState({ nomeUsuario })}
-            />
-            <TextInput
-              style={styles.mainInput}
-              placeholder='CPF'
-              placeholderTextColor='#000000'
-              onChangeText={cpf => this.setState({ cpf })}
-            />
-            <TextInput
-              style={styles.mainInput}
-              placeholder='Endereço de e-mail'
-              placeholderTextColor='#000000'
-              keyboardType="email-address"
-              onChangeText={email => this.setState({ email })}
-            />
-            <TextInput
-              style={styles.mainInput}
-              placeholder='Senha'
-              placeholderTextColor='#000000'
-              keyboardType="default"
-              secureTextEntry={true}
-              passwordRules
-              onChangeText={senha => this.setState({ senha })}
-            />
-            <TextInput
-              style={styles.mainInput}
-              placeholder='AAAA/MM/DD'
-              placeholderTextColor='#000000'  
-              onChangeText={dataNascimento => this.setState({ dataNascimento })}
-            />
-            {/* <DatePicker
-              style={styles.mainInput}
-              date={this.state.dataNascimento}
-              mode="date"
-              placeholder="select date"
-              format="DD/MM/YYYY"
-              minDate="01-01-1900"
-              maxDate="01-01-2000"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-              dateIcon: {
-              position: 'absolute',
-              right: -5,
-              top: 4,
-              marginLeft: 0,
-              },
-              dateInput: {
-              borderColor: "gray",
-              alignItems: "flex-start",
-              borderWidth: 0,
-              borderBottomWidth: 1,
-              },
-              
-              placeholderText: {
-              fontSize: 17,
-              color: "gray"
-              },
-              
-              dateText: {
-              fontSize: 17,
-              }
-              }}
-              onChangeText={dataNascimento => this.setState({ dataNascimento })}
-            />*/}
-            {
-              this.state.isLoading === false &&
-              <TouchableOpacity style={styles.mainBtnRegister} onPress={this.finalizarCadastro}>
-                <Text style={styles.mainBtnText}>Cadastrar</Text>
-              </TouchableOpacity>
-            }
-
-            {
-              this.state.isLoading === true &&
-              <TouchableOpacity style={styles.mainBtnRegister} disabled>
-                <Text style={styles.mainBtnText}>Carregando</Text>
-              </TouchableOpacity>
-            }
-
-            <Text style={styles.mainTextError}>{this.state.mensagemErro}</Text>
-          </View>
-
-          <View style={styles.mainTextSpace}>
-            <Text style={styles.mainText}>Você será reencaminhado para a tela de login.</Text>
+        <View style={styles.mainGap}></View>
+        <View style={styles.mainHeader}>
+          <View style={styles.mainHeaderSpace}>
+            <Image source={require('../../assets/img/icon_back.png')} style={styles.mainHeaderImage} />
+            <Text style={styles.mainHeaderText}>Cadastro</Text>
           </View>
         </View>
+
+        <View style={styles.mainContent}>
+          <View style={styles.mainContentForm}>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='Nome Completo'
+              placeholderTextColor='#000000'
+              keyboardType="default"></TextInput>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='CPF'
+              placeholderTextColor='#000000'
+              keyboardType="default"></TextInput>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='Endereço de E-mail'
+              placeholderTextColor='#000000'
+              keyboardType="email-address"></TextInput>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='Senha'
+              placeholderTextColor='#000000'
+              keyboardType="default"></TextInput>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='DD/MM/AAAA'
+              placeholderTextColor='#000000'
+              keyboardType="default"></TextInput>
+            <TextInput
+              style={styles.mainContentFormInput}
+              placeholder='Foto'
+              placeholderTextColor='#000000'
+              keyboardType="default"></TextInput>
+            <TouchableOpacity style={styles.mainContentFormButton} onPress={this.realizarLogin} disabled={this.state.Email === '' || this.state.Senha === '' ? 'none' : ''}>
+              <Text style={styles.mainContentFormButtonText}>Cadastrar</Text>
+            </TouchableOpacity>
+            <Text style={styles.mainContentFormText}>Você será reenchaminhado para a tela de login</Text>
+          </View>
+        </View>
+
       </View >
     );
   }
@@ -189,55 +144,60 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     alignItems: 'center',
-    justifyContent: 'center'
   },
-  mainDiv: {
-    flex: 0.85,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  mainTitleSpace: {
-    width: 220,
-    height: 60,
-    marginRight: 65,
+  mainGap: {
+    // height: 37,
+    height: '4.3%',
 
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
-  mainImage: {
-    marginTop: 8,
-    marginLeft: 10,
-    width: 20,
-    height: 20,
+  mainHeader: {
+    width: '100%',
+    // height: 65,
+    height: '7.6%',
+    backgroundColor: '#F3BC2C',
+    justifyContent: 'center',
   },
-  mainTitle: {
-    marginTop: 10,
-    marginLeft: 45,
-    fontSize: 36,
-    color: '#000000',
-    fontFamily: 'IBMPlexMono_700Bold',
-  },
-  mainFormSpace: {
-    height: 510,
+  mainHeaderSpace: {
+    width: '59%',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flexDirection: 'row',
+    // marginLeft: 18,
+    marginLeft: '4.7%',
   },
-  mainInput: {
-    width: 260,
-    height: 60,
+  mainHeaderImage: {
+    width: 25,
+    height: 21.56,
+  },
+  mainHeaderText: {
+    fontFamily: 'IBMPlexMono_700Bold',
+    fontSize: 25,
+  },
+  mainContent: {
+    backgroundColor: '#FFFFFF',
+    width: '100%',
+    height: '100%',
+    // marginTop: '10%'
+  },
+  mainContentForm: {
+    alignItems: 'center'
+  },
+  mainContentFormInput: {
+    backgroundColor: '#FFFFFF',
+    width: '70%',
+    // height: 60,
+    height: '8.5%',
+    marginTop: '8%',
+    borderColor: '#F3BC2C',
     borderWidth: 2,
     borderRadius: 5,
-    paddingLeft: 23,
-    backgroundColor: '#ffffff',
-    borderStyle: 'solid',
-    borderColor: '#F3BC2C',
-    marginTop: '8%',
+    paddingLeft: 20
   },
-  mainBtnRegister: {
-    width: 157,
-    height: 60,
+  mainContentFormButton: {
+    // width: 157,
+    width: '40%',
+    // height: 60,
+    height: '8%',
     borderRadius: 5,
     backgroundColor: '#F3BC2C',
     alignItems: 'center',
@@ -245,31 +205,15 @@ const styles = StyleSheet.create({
     marginTop: '8%',
 
   },
-  mainBtnBack: {
-    width: 20,
-    height: 20,
-  },
-  mainBtnText: {
+  mainContentFormButtonText: {
     fontSize: 25,
     fontFamily: 'IBMPlexMono_700Bold',
     color: '#000000'
   },
-  mainTextSpace: {
-    marginTop: 30,
-    height: 16,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  mainText: {
+  mainContentFormText: {
     fontSize: 14,
-    fontFamily: 'ABeeZee_400Regular',
-    color: '#000000'
+    color: '#797979',
+    marginTop: '8%'
   },
-  mainTextError:{
-    fontSize: 14,
-    color: 'red',
-    marginTop: '2%',
-  }
 });
-
 export default Cadastro

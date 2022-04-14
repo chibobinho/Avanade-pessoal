@@ -20,6 +20,8 @@ class Main extends Component {
     return (
       <View style={styles.main}>
         <StatusBar
+          barStyle='dark-content'
+          backgroundColor='#F3BC2C'
           hidden={false}
         />
 
@@ -33,9 +35,9 @@ class Main extends Component {
                   <View style={styles.iconNav}>
                     <Image
                       style={styles.tabBarIcon}
-                      source={require('../../assets/img/icon_mapa.png')}
+                      source={require('../../assets/img/icon_location.png')}
                     />
-                    <Text style={styles.textNav}>Mapa</Text>
+                    <Text style={styles.textNav}>Localização</Text>
                   </View>
                 )
               }
@@ -43,10 +45,10 @@ class Main extends Component {
                 return (
                   <View style={styles.iconNav}>
                     <Image
-                      style={styles.tabBarIcon}
-                      source={require('../../assets/img/icon_perfil.png')}
+                      style={styles.tabBarIcon2}
+                      source={require('../../assets/img/icon_nearby.png')}
                     />
-                    <Text style={styles.textNav}>Meu Perfil</Text>
+                    <Text style={styles.textNav}>Pontos próximos</Text>
                   </View>
                 )
               }
@@ -55,10 +57,8 @@ class Main extends Component {
             // React Navigation 6.x
             headerShown: false,
             tabBarShowLabel: false,
-            tabBarActiveBackgroundColor: '#F3BC2C',
-            tabBarInactiveBackgroundColor: '#F3BC2C',
-            // tabBarActiveTintColor: 'blue',
-            // tabBarInactiveTintColor: 'red',
+            tabBarActiveBackgroundColor: '#FFFFFF',
+            tabBarInactiveBackgroundColor: '#FFFFFF',
             tabBarStyle: {
               height: 78,
               borderTopWidth: 0,
@@ -80,26 +80,24 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
   },
-
   iconNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: 'column',
     alignItems: 'center',
   },
-
-  // estilo dos textos da navegação
   textNav: {
-    fontSize: 18,
+    fontSize: 14,
     color: '#000',
     fontFamily: 'IBMPlexMono_700Bold',
-    marginLeft: '5%'
   },
-
-  // estilo dos ícones da tabBar
   tabBarIcon: {
-    width: 40,
-    height: 40
+    height: 30,
+    width: 25.14,
+    marginBottom: 5
+  },
+  tabBarIcon2: {
+    height: 30,
+    width: 30,
+    marginBottom: 5
   }
 });
-
 export default Main;

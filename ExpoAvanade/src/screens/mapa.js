@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  StatusBar,
 } from 'react-native';
 
 import MapView, { Callout, Marker } from 'react-native-maps';
@@ -13,6 +14,7 @@ import MapView, { Callout, Marker } from 'react-native-maps';
 import api from '../services/api';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { backgroundColor, borderBottomColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default class Mapa extends Component {
   constructor(props) {
@@ -46,6 +48,26 @@ export default class Mapa extends Component {
   render() {
     return (
       <View style={styles.main}>
+        <StatusBar
+          barStyle='dark-content'
+          backgroundColor='#F3BC2C'
+          hidden={false}
+        />
+
+        <View style={styles.mainGap}></View>
+        <View style={styles.mainHeader}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfil')}>
+            <View style={styles.mainHeaderSpace}>
+              <Image source={require('../../assets/img/profile.png')} style={styles.mainHeaderProfile} />
+              <View>
+                <Text style={styles.mainHeaderText}>Olá,</Text>
+                <Text style={styles.mainHeaderText}>Rosana Dolores</Text>
+              </View>
+              <Image source={require('../../assets/img/icon_next.png')} style={styles.mainHeaderNext} />
+            </View>
+          </TouchableOpacity>
+        </View>
+
         <MapView style={styles.mainMap}
           initialRegion={{
             latitude: -23.53641,
@@ -73,23 +95,14 @@ export default class Mapa extends Component {
           })}
         </MapView>
 
-        <View style={styles.mainNav}>
-          <View style={styles.mainMenuNav}>
-            <View style={styles.mainDiv}>
-              {/* <TextInput style={styles.mainMenuInput}
-                placeholder='Para onde?'
-                placeholderTextColor='#000000'>
-              </TextInput>
-              <TouchableOpacity style={styles.mainBtnTest} onPress={this.realizarBusca}>
-                <Text style={styles.mainBtnText}>OO</Text>
-              </TouchableOpacity> */}
-              <TouchableOpacity style={styles.mainMenuInput} onPress={() => this.props.navigation.navigate('Pesquisa')}>
-                <Text style={styles.mainBtnText}>Para onde?</Text>
-              </TouchableOpacity>
-            </View>
+        <View style={styles.mainSearch}>
+          <View style={styles.mainSearchInput}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Pesquisa')}>
+              <Text style={styles.mainSearchInputText}>Para onde?</Text>
+            </TouchableOpacity>
           </View>
-
         </View>
+
       </View >
     );
   }
@@ -98,53 +111,71 @@ export default class Mapa extends Component {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
+  },
+  mainGap: {
+    // height: 37,
+    height: '4.3%',
+
+  },
+  mainHeader: {
+    width: '100%',
+    // height: 65,
+    height: '7.6%',
+    backgroundColor: '#F3BC2C',
+    justifyContent: 'center',
+  },
+  mainHeaderSpace: {
+    width: '59%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    // marginLeft: 18,
+    marginLeft: '7%',
+  },
+  mainHeaderProfile: {
+    width: 50,
+    height: 50,
+  },
+  mainHeaderText: {
+    fontFamily: 'IBMPlexMono_700Bold',
+    fontSize: 14,
+    // marginRight: 30,
+  },
+  mainHeaderNext: {
+    width: 20,
+    height: 20,
+    marginRight: 30,
+    marginTop: 20,
   },
   mainMap: {
-    flex: 0.89,
-    width: 411,
-    borderRadius: 5,
-    borderWidth: 2,
-    backgroundColor: '#ffffff',
-    borderColor: '#000000',
+    width: '100%',
+    height: '79%',
   },
-  mainNav: {
-    flex: 0.11,
-    backgroundColor: '#F7F7F7',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mainMenuNav: {
-    width: 380,
-    borderRadius: 5,
+  mainSearch: {
+    width: '100%',
+    // height: 70,
+    height: '9%',
     backgroundColor: '#F3BC2C',
-  },
-  mainDiv: {
-    width: 394,
-    height: 70,
-    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: 'center',
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1
+
   },
-  mainMenuInput: {
-    width: 320,
-    height: 45,
-    paddingLeft: 23,
-    paddingBottom: 2,
-    fontSize: 12,
+  mainSearchInput: {
+    width: '80%',
+    // height: 45,
+    height: '60%',
+    backgroundColor: '#FFFFFF',
     borderRadius: 5,
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#000000',
-    backgroundColor: '#ffffff',
+    // alignItems: 'center',
+    justifyContent: 'center'
   },
-  mainBtnText: {
-    marginTop: 12,
-  },
-  calloutText: {
-    fontSize: 14,
-    fontFamily: 'ABeeZee_400Regular',
-    color: '#000000',
-  },
+  mainSearchInputText: {
+    paddingLeft: 20,
+    // alignItems: 'center',
+    // justifyContent: 'center'
+  }
 });

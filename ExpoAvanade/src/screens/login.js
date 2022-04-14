@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  StatusBar
 } from 'react-native';
 
 import api from '../services/api';
@@ -33,7 +34,7 @@ class Login extends Component {
 
       const token = resposta.data.token;
       await AsyncStorage.setItem('userToken', token);
-      
+
       this.setState({ IsLoading: false });
       if (resposta.status == 200) {
         this.props.navigation.navigate('Main');
@@ -48,7 +49,7 @@ class Login extends Component {
   };
 
   LimparCampos = () => {
-    this.setState({ Email: '', Senha: ''})
+    this.setState({ Email: '', Senha: '' })
   };
 
   componentDidMount() {
@@ -58,10 +59,15 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.main}>
+        <StatusBar
+          barStyle='dark-content'
+          backgroundColor='#FFFFFF'
+          hidden={false}
+        />
         <View style={styles.mainDiv}>
 
           <View style={styles.mainImageSpace}>
-            <Image source={require('../../assets/img/icon.png')} style={styles.mainImage} />
+            <Image source={require('../../assets/img/icon1.png')} style={styles.mainImage} />
           </View>
 
           <View style={styles.mainFormAlignment}>
@@ -93,7 +99,7 @@ class Login extends Component {
             {
               // Caso seja false, renderiza o botão habilitado com o texto 'Login'
               this.state.IsLoading === false &&
-              <TouchableOpacity style={styles.mainBtnLogin} onPress={this.realizarLogin} disabled={this.state.Email === '' || this.state.Senha === '' ? 'none' : ''}>
+              <TouchableOpacity style={styles.mainBtnLogin} onPress={() => this.props.navigation.navigate('Main')}>
                 <Text style={styles.mainBtnText}>Logar</Text>
               </TouchableOpacity>
             }
@@ -134,8 +140,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mainImage: {
-    width: 132,
-    height: 96,
+    width: 200,
+    height: 100,
     marginTop: '10%',
   },
   mainFormAlignment: {
@@ -165,7 +171,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IBMPlexMono_700Bold',
     color: '#000000'
   },
-  mainTextError:{
+  mainTextError: {
     fontSize: 14,
     color: 'red',
     marginTop: '2%',
@@ -181,5 +187,4 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
 });
-
 export default Login;
